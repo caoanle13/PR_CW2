@@ -1,0 +1,113 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage[]{algorithm2e}
+\usepackage{enumitem}
+\usepackage[lofdepth,lotdepth, font=scriptsize]{subfig}
+\usepackage{url}
+\usepackage[perpage]{footmisc}
+
+% Include other packages here, before hyperref.
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+
+\cvprfinalcopy % *** Uncomment this line for the final submission
+
+\def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+%\ifcvprfinal\pagestyle{empty}\fi
+\setcounter{page}{1}
+\begin{document}
+
+%%%%%%%%% TITLE
+\title{Pattern Recognition: Coursework I}
+
+\author{Mohyeldin Aboualam\\
+Imperial College London\\
+SW7 2AZ\\
+{\tt\small mohyeldin.aboualam15@imperial.ac.uk}
+\and
+Cao An Le\\
+Imperial College London\\
+SW7 2AZ\\
+{\tt\small caoan.le15@imperial.ac.uk}
+}
+
+
+\maketitle
+%\thispagestyle{empty}
+
+%%%%%%%%% ABSTRACT
+\begin{abstract}
+ok
+\end{abstract}
+
+%%%%%%%%% BODY TEXT
+\section{Introduction}
+\subsection{Dataset Description}
+The CUHK03 dataset contains $14096$ images picturing $1.467$ identities. Feature vectors are stored as rows in a $14096 \times 2048$ matrix, from which a training set, validation set and test set are produced\footnote{A standard 60-20-20 split was performed.}
+\subsection{Problem Formulation}
+In this study, we explore Distance Metrics Learning for the purpose of improving Machine Learning (ML) algorithms. Some supervised and unsupervised learning algorithms, such as k-nearest neighbors and k-means clustering, depend on distance calculations. Generally, finding an adequate metric is a data-dependent problem, where the goal is to learn one that assigns small distances to similar data points (and large distances to dissimilar examples).
+
+We first start by performing an evaluation experiment on a baseline approach using k-nearest neighbors (KNN) algorithm with no modification on the features on the test set. 
+
+Then, we propose methods to improve the baseline using distance metric learning algorithms and repeat the testing procedure as means of assessing the performance of our approach.
+
+In order to assess the performance of different approaches, we analyse the Cumulative Matching Characteristics top-K accuracy. In the KNN algorithm this correponds to the percentage of query images that were matched with correct (same label) gallery image within K nearest neighbours. Within the K nearest neighbours, the  CMC top-k accuracy is:
+
+\begin{equation*}
+A_{cck} =
+\begin{cases}
+1, \\
+0
+\end{equation*}
+
+The final CMC curve is computed by averaging the shifted step functions over all the queries.
+
+\section{Baseline Approach}
+In this section, we evaluate the performance of (metrics wise) of untouched feature representations, by conducting the experiment on the gallery set.
+The calculated distance in the KNN method depends on the metric used (e.g. euclidean, minkowski, mahalanobis). For our baseline approach, the standard euclidean L2 distance is employed (see equation \ref{eq:euclidean_distance} for the Euclidean distance $d$ between vectors $\textbf{p}$ and $\textbf{q}$ where $\textbf{p}$ and $\textbf{q}$ $\in R^n$).
+
+\begin{equation}\label{eq:euclidean_distance}
+d(p,q) = \sqrt{\sum_{i=1}^n \left( q_i - p_i \right)^2}
+\end{equation}
+
+
+\section{Alternative Approaches}
+To improve the metrics values obtained from the baseline approach, several ideas are proposed. It is important to note that now, the
+
+Different metrics of the KNN algorithm other than the Euclidean distance can be analysed and compared. A different metric will place different weights on the neighbouring points which could therefore be different. For instance, we first study the effect of using the mahalanobis metric, which is defined as:
+
+\begin{equation}\label{eq:mahalanobis_distance}
+d(p, q) = \sqrt{\left(\textbf{p} - \textbf{q} \right)^T \textbf{S}^{-1} \left( \textbf{p - \textbf{q}}}
+\end{equation}
+
+where $\textbf{S}$ is the covariance matrix between the two vectors $\textbf{p}$ and $\textbf{q}$. Thus, the Mahalanobis metric accounts for how correlated the variables are to one another and avoids the redundant information in the Euclidean distance calculation. In fact, computing the Mahalanobis distance corresponds to computing the Euclidean distance on a PCA-transformed data\footnote{where the data is "squished" around the principal components}. Another way to think of this is that the Mahalanobis distance leads to an elliptic decision boundary in a 2-D case, as opposed to a circular boundary in the Euclidean distance case.
+Linear Discriminant Analysis can be used to maximise class separability, which should result in 
+In search of reducing the feature dimensions, Principal Component Analysis can be
+
+
+\begin{thebibliography}{9}
+
+
+
+\end{thebibliography}
+
+{\small
+\bibliographystyle{ieee}
+\bibliography{egbib}
+}
+
+\end{document}
